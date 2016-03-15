@@ -27,7 +27,7 @@ function runTime() {
       cherry.count++;
     } else if(cherry.init===3){
     } else {
-      cherryRun();
+      npcObjectMove(cherry);
       displayCherry();
       cherryCrash(go);
     }
@@ -44,8 +44,6 @@ function runTime() {
     setTimeout(runTime, 100);
 }
 //end of runtime function
-
-
 var score = 0;
 var yPosition = 1;
 var xPosition = 1;
@@ -87,41 +85,19 @@ var cherry = {
   count: 0,
   init: 0
 }
-/*
-function randomWorld(){
-  for(var i=1; i<tempWorld.length-2; i++){
-    for(var j=1; j<tempWorld[i].length-2; j++){
-      tempWorld[i][j] == randomBlock();
-    }
-  }
-}
-*/
 function randomWorld(tempWorld){
   for(var i=1; i<tempWorld.length-1; i++){
     for(var j=1; j<tempWorld[i].length-1; j++){
       if(tempWorld[i][j]===0){
         tempWorld[i][j] = randomBlock();
       }
-//				if (tempWorld[i][j]>3){
-
-//				}
     }
   }
-  //tempworld = checkDeserts(tempWorld,1,1,1);
   tempWorld = defineBlocks(tempWorld);
   return tempWorld;
 }
-//connects any disconnected coins
-/*	function checkDeserts(tempArray,yStart,xStart,tempCount){
-//I need to test if the value in the array is connected to the first space by checking
-//each value and assigning it a code.
-  if (tempArray[yStart][xStart]=)
-  return tempArray;
-
-}*/
 //defineBlocks is used to swap out the bricks for ones that match the art
 function defineBlocks(blockedArray){
-//	blockedArray[1][1] = 2;
   for(var i=1; i<blockedArray.length-1; i++){
     for(var j=1; j<blockedArray[i].length-1; j++){
       if(blockedArray[i][j]>3 && blockedArray[i-1][j]<4 && blockedArray[i+1][j]<4 && blockedArray[i][j+1]<4 && blockedArray[i][j-1]<4){
@@ -348,85 +324,52 @@ else if(e.keyCode == 83){
 }
 }
 
-function ghostRunner(ghostColor){
+function ghostRunner(currentGhost){
 //console.log("runred");
 if(Math.ceil(Math.random()*10)<=6){
 
 } else if (Math.ceil(Math.random()*10)===7){
-  ghostColor.dir = 1;
+  currentGhost.dir = 1;
 }
 else if (Math.ceil(Math.random()*10)===8){
-  ghostColor.dir = 2;
+  currentGhost.dir = 2;
 }
 else if (Math.ceil(Math.random()*10)===9){
-  ghostColor.dir = 3;
+  currentGhost.dir = 3;
 }
 else if (Math.ceil(Math.random()*10)===10){
-  ghostColor.dir = 4;
+  currentGhost.dir = 4;
 }
-var ghostTempX = ghostColor.x;
-var ghostTempY = ghostColor.y;
-if(ghostColor.dir === 1){
-  moveObject(ghostColor, 0, -0.1);
-  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
-    ghostColor.dir = 2;
+npcObjectMove(currentGhost);
+}
+function npcObjectMove(currentObject){
+var ghostTempX = currentObject.x;
+var ghostTempY = currentObject.y;
+if(currentObject.dir === 1){
+  moveObject(currentObject, 0, -0.1);
+  if(ghostTempX === currentObject.x && ghostTempY === currentObject.y){
+    currentObject.dir = 2;
   }
 }
-else if(ghostColor.dir === 2){
-  moveObject(ghostColor, 0, 0.1);
-  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
-    ghostColor.dir = 3;
+else if(currentObject.dir === 2){
+  moveObject(currentObject, 0, 0.1);
+  if(ghostTempX === currentObject.x && ghostTempY === currentObject.y){
+    currentObject.dir = 3;
   }
 }
-else if(ghostColor.dir === 3){
-  moveObject(ghostColor, -0.1, 0);
-  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
-    ghostColor.dir = 4;
+else if(currentObject.dir === 3){
+  moveObject(currentObject, -0.1, 0);
+  if(ghostTempX === currentObject.x && ghostTempY === currentObject.y){
+    currentObject.dir = 4;
   }
 }
-else if(ghostColor.dir === 4){
-  moveObject(ghostColor, 0.1, 0);
-  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
-    ghostColor.dir = 1;
-  }
-}
-}
-
-function cherryRun(){
-if(cherry.dir === 1){
-  if(world[Math.floor(cherry.y)][Math.floor(cherry.x-.1)] < 4 && world[Math.ceil(cherry.y)][Math.floor(cherry.x-.1)] < 4){
-    cherry.x=cherry.x-.1;
-  } else {
-    cherry.dir =2;
-    cherry.x=Math.floor(cherry.x);
-  }
-}
-else if(cherry.dir === 2){
-  if(world[Math.floor(cherry.y)][Math.ceil(cherry.x+.1)] < 4 && world[Math.ceil(cherry.y)][Math.ceil(cherry.x+.1)] < 4){
-    cherry.x=cherry.x+.1;
-  } else {
-    cherry.dir =3;
-    cherry.x=Math.floor(cherry.x);
-  }
-}
-else if(cherry.dir === 3){
-  if(world[Math.floor(cherry.y-.1)][Math.floor(cherry.x)] < 4 && world[Math.floor(cherry.y-.1)][Math.ceil(cherry.x)] < 4){
-    cherry.y=cherry.y-.1;
-  } else {
-    cherry.dir =4;
-    cherry.y=Math.floor(cherry.y);
-  }
-}
-else if(cherry.dir === 4){
-  if(world[Math.ceil(cherry.y+.1)][Math.floor(cherry.x)] < 4 && world[Math.ceil(cherry.y+.1)][Math.ceil(cherry.x)] < 4){
-    cherry.y=cherry.y+.1;
-  } else {
-    cherry.dir =1;
-    cherry.y=Math.floor(cherry.y);
+else if(currentObject.dir === 4){
+  moveObject(currentObject, 0.1, 0);
+  if(ghostTempX === currentObject.x && ghostTempY === currentObject.y){
+    currentObject.dir = 1;
   }
 }
 }
-
 //this function compares objects to map objects... it does not compare object to object
 function activSquare(squareObject){
   var objectVOne = world[Math.floor(squareObject.y)][Math.floor(squareObject.x)];
@@ -445,23 +388,6 @@ function activSquare(squareObject){
       squareObject.charge += 1;
     }
   }
-
-/*this function is not currently being used
-function checkPowerBro(){
-  if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] == 3){
-    world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] = 2;
-    pacbro.charge += 5;
-  } else if(world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] == 3){
-    world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-    pacbro.charge += 5;
-  } else if(world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] == 3){
-    world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-    pacbro.charge += 5;
-  } else if(world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] == 3){
-    world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] = 2;
-    pacbro.charge += 5;
-  }
-}*/
 function ghostCrashRed(validCrash){
 if((Math.sqrt((pacman.y-ghostRed.y)*(pacman.y-ghostRed.y)))<=.7 && (Math.sqrt((pacman.x-ghostRed.x)*(pacman.x-ghostRed.x)))<=.7){
   validCrash = 1;
