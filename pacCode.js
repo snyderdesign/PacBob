@@ -19,6 +19,8 @@ function runTime() {
     displayPacbro();
     //I know there must be a way to contain all the active objects
     //but I'm not there yet.  I'll finish later.
+    pacObjectMove(pacman);
+    pacObjectMove(pacbro);
     ghostRunner(ghostRed);
     ghostRunner(ghostGreen);
     displayGhost();
@@ -41,7 +43,7 @@ function runTime() {
     }
     //setTimeout I found when looking for a time display.
     //It does a function after waiting a specified amount of time.
-    setTimeout(runTime, 100);
+    setTimeout(runTime, 50);
 }
 //end of runtime function
 var score = 0;
@@ -53,14 +55,16 @@ var pacman = {
   y: 1,
   width: 32,
   height: 32,
-  charge: 0
+  charge: 0,
+  dir: 4
 }
 var pacbro = {
   x: 1,
   y: 1,
   width: 32,
   height: 32,
-  charge: 0
+  charge: 0,
+  dir: 4
 }
 var ghostGreen = {
   x: 5,
@@ -290,37 +294,45 @@ function moveObject(movableObject, yChange, xChange){
 document.onkeydown = function(e){ //my way of checking for key inputs
 if(e.keyCode == 37){
   //moveObject(javascript object to be moved, change in y, change in x)
-  moveObject(pacman, 0, -0.5);
-  activSquare(pacman);
+  pacman.dir = 1;
+//  moveObject(pacman, 0, -0.5);
+//  activSquare(pacman);
 }
 else if(e.keyCode == 39){
-  moveObject(pacman, 0, 0.5);
-  activSquare(pacman);
+  pacman.dir = 2;
+//  moveObject(pacman, 0, 0.5);
+//  activSquare(pacman);
 }
 
 else if(e.keyCode == 38){
-  moveObject(pacman, -0.5, 0);
-  activSquare(pacman);
+  pacman.dir = 3;
+//  moveObject(pacman, -0.5, 0);
+//  activSquare(pacman);
 }
 else if(e.keyCode == 40){
-  moveObject(pacman, 0.5, 0);
-  activSquare(pacman);
+  pacman.dir = 4;
+//  moveObject(pacman, 0.5, 0);
+//  activSquare(pacman);
 }
 if(e.keyCode == 65){
-  moveObject(pacbro, 0, -0.5);
-  activSquare(pacbro);
+  pacbro.dir = 1;
+//  moveObject(pacbro, 0, -0.5);
+//  activSquare(pacbro);
 }
 else if(e.keyCode == 68){
-  moveObject(pacbro, 0, 0.5);
-  activSquare(pacbro);
+  pacbro.dir = 2;
+//  moveObject(pacbro, 0, 0.5);
+//  activSquare(pacbro);
 }
 else if(e.keyCode == 87){
-  moveObject(pacbro, -0.5, 0);
-  activSquare(pacbro);
+  pacbro.dir = 3;
+//  moveObject(pacbro, -0.5, 0);
+//  activSquare(pacbro);
 }
 else if(e.keyCode == 83){
-  moveObject(pacbro, 0.5, 0);
-  activSquare(pacbro);
+  pacbro.dir = 4;
+//  moveObject(pacbro, 0.5, 0);
+//  activSquare(pacbro);
 }
 }
 
@@ -340,7 +352,24 @@ else if (Math.ceil(Math.random()*10)===9){
 else if (Math.ceil(Math.random()*10)===10){
   currentGhost.dir = 4;
 }
+
 npcObjectMove(currentGhost);
+}
+
+function pacObjectMove(currentPac){
+  if(currentPac.dir === 1){
+    moveObject(currentPac, 0, -0.25);
+    activSquare(currentPac);
+  } else if(currentPac.dir === 2){
+    moveObject(currentPac, 0, 0.25);
+    activSquare(currentPac);
+  } else if(currentPac.dir === 3){
+    moveObject(currentPac, -0.25, 0);
+    activSquare(currentPac);
+  } else if(currentPac.dir === 4){
+    moveObject(currentPac, 0.25, 0);
+    activSquare(currentPac);
+  }
 }
 function npcObjectMove(currentObject){
 var ghostTempX = currentObject.x;
