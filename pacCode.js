@@ -331,67 +331,38 @@ function moveObject(movableObject, yChange, xChange){
 //want to change the incements to a variable stored in the pac objects and the checks a standard function.
 document.onkeydown = function(e){ //my way of checking for key inputs
 if(e.keyCode == 37){
+  //moveObject(javascript object to be moved, change in y, change in x)
   moveObject(pacman, 0, -0.5);
-  checkCoin(pacman);
-  checkPower();
+  activSquare(pacman);
 }
 else if(e.keyCode == 39){
   moveObject(pacman, 0, 0.5);
-  checkCoin(pacman);
-  checkPower();
+  activSquare(pacman);
 }
 
 else if(e.keyCode == 38){
   moveObject(pacman, -0.5, 0);
-  checkCoin(pacman);
-  checkPower();
+  activSquare(pacman);
 }
 else if(e.keyCode == 40){
-    moveObject(pacman, 0.5, 0);
-    checkCoin(pacman);
-    checkPower();
+  moveObject(pacman, 0.5, 0);
+  activSquare(pacman);
 }
 if(e.keyCode == 65){
-  //checks to see if colliding with a brick
-  if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x-.5)] < 4 && world[Math.ceil(pacbro.y)][Math.floor(pacbro.x-.5)] < 4){
-    //checks to see if it is touching a coin or power coin
-    checkCoin(pacbro);
-    checkPowerBro();
-    pacbro.x=pacbro.x-.5;
-    //xPosition = Math.floor(pacbro.x);
-  } else {
-    pacbro.x=Math.floor(pacbro.x);
-  }
+  moveObject(pacbro, 0, -0.5);
+  activSquare(pacbro);
 }
 else if(e.keyCode == 68){
-  if(world[Math.floor(pacbro.y)][Math.ceil(pacbro.x+.5)] < 4 && world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x+.5)] < 4){
-    checkCoin(pacbro);
-    checkPowerBro();
-    pacbro.x=pacbro.x+.5;
-    //xPosition = Math.ceil(pacbro.x);
-  } else {
-    pacbro.x=Math.floor(pacbro.x);
-  }
+  moveObject(pacbro, 0, 0.5);
+  activSquare(pacbro);
 }
 else if(e.keyCode == 87){
-  if(world[Math.floor(pacbro.y-.5)][Math.floor(pacbro.x)] < 4 && world[Math.floor(pacbro.y-.5)][Math.ceil(pacbro.x)] < 4){
-    checkCoin(pacbro);
-    checkPowerBro();
-    pacbro.y=pacbro.y-.5;
-    //yPosition = Math.floor(pacbro.y);
-  } else {
-    pacbro.y=Math.floor(pacbro.y);
-  }
+  moveObject(pacbro, -0.5, 0);
+  activSquare(pacbro);
 }
 else if(e.keyCode == 83){
-  if(world[Math.ceil(pacbro.y+.5)][Math.floor(pacbro.x)] < 4 && world[Math.ceil(pacbro.y+.5)][Math.ceil(pacbro.x)] < 4){
-    checkCoin(pacbro);
-    checkPowerBro();
-    pacbro.y=pacbro.y+.5;
-    //yPosition = Math.ceil(pacbro.y);
-  } else {
-    pacbro.y=Math.floor(pacbro.y);
-  }
+  moveObject(pacbro, 0.5, 0);
+  activSquare(pacbro);
 }
 }
 
@@ -573,50 +544,34 @@ if(world[Math.floor(coinObject.y)][Math.floor(coinObject.x)] == 1){
   coinObject.charge += 1;
 }
 }
-function checkPower(){
-if(world[Math.floor(pacman.y)][Math.floor(pacman.x)] == 3){
-  world[Math.floor(pacman.y)][Math.floor(pacman.x)] = 2;
-  pacman.charge += 5;
-} else if(world[Math.floor(pacman.y)][Math.ceil(pacman.x)] == 3){
-  world[Math.floor(pacman.y)][Math.ceil(pacman.x)] = 2;
-  pacman.charge += 5;
-} else if(world[Math.ceil(pacman.y)][Math.ceil(pacman.x)] == 3){
-  world[Math.ceil(pacman.y)][Math.ceil(pacman.x)] = 2;
-  pacman.charge += 5;
-} else if(world[Math.ceil(pacman.y)][Math.floor(pacman.x)] == 3){
-  world[Math.ceil(pacman.y)][Math.floor(pacman.x)] = 2;
-  pacman.charge += 5;
+function activSquare(squareObject){
+  var objectValue = world[Math.round(squareObject.y)][Math.round(squareObject.x)];
+  if(objectValue === 3){
+    world[Math.round(squareObject.y)][Math.round(squareObject.x)] = 2;
+    squareObject.charge += 5;
+  } else if(objectValue === 1){
+    world[Math.round(squareObject.y)][Math.round(squareObject.x)] = 2;
+    squareObject.charge += 1;
+  } else {
+
+  }
 }
-}
-function checkCoinBro(){
-if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] == 1){
-  world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] = 2;
-  pacbro.charge += 1;
-} else if(world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] == 1){
-  world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-  pacbro.charge += 1;
-} else if(world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] == 1){
-  world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-  pacbro.charge += 1;
-} else if(world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] == 1){
-  world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] = 2;
-  pacbro.charge += 1;
-}
-}
+
+
 function checkPowerBro(){
-if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] == 3){
-  world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] = 2;
-  pacbro.charge += 5;
-} else if(world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] == 3){
-  world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-  pacbro.charge += 5;
-} else if(world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] == 3){
-  world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] = 2;
-  pacbro.charge += 5;
-} else if(world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] == 3){
-  world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] = 2;
-  pacbro.charge += 5;
-}
+  if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] == 3){
+    world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] = 2;
+    pacbro.charge += 5;
+  } else if(world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] == 3){
+    world[Math.floor(pacbro.y)][Math.ceil(pacbro.x)] = 2;
+    pacbro.charge += 5;
+  } else if(world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] == 3){
+    world[Math.ceil(pacbro.y)][Math.ceil(pacbro.x)] = 2;
+    pacbro.charge += 5;
+  } else if(world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] == 3){
+    world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] = 2;
+    pacbro.charge += 5;
+  }
 }
 function ghostCrashRed(validCrash){
 if((Math.sqrt((pacman.y-ghostRed.y)*(pacman.y-ghostRed.y)))<=.7 && (Math.sqrt((pacman.x-ghostRed.x)*(pacman.x-ghostRed.x)))<=.7){
