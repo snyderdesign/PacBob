@@ -430,136 +430,7 @@ else if(ghostColor.dir === 4){
   }
 }
 }
-/*
 
-function ghostRunRed(){
-//console.log("runred");
-if(Math.ceil(Math.random()*10)<=6){
-
-} else if (Math.ceil(Math.random()*10)===7){
-  ghostRed.dir = 1;
-}
-else if (Math.ceil(Math.random()*10)===8){
-  ghostRed.dir = 2;
-}
-else if (Math.ceil(Math.random()*10)===9){
-  ghostRed.dir = 3;
-}
-else if (Math.ceil(Math.random()*10)===10){
-  ghostRed.dir = 4;
-}
-//console.log("endred");
-if(ghostRed.dir === 1){
-  //checks to see if colliding with a brick
-  if(world[Math.floor(ghostRed.y)][Math.floor(ghostRed.x-.1)] < 4 && world[Math.ceil(ghostRed.y)][Math.floor(ghostRed.x-.1)] < 4){
-    //checks to see if it is touching a coin or power coin
-    ghostRed.x=ghostRed.x-.1;
-    //console.log(1);
-    //xPosition = Math.floor(this.x);
-  } else {
-    ghostRed.dir =2;
-    ghostRed.x=Math.floor(ghostRed.x);
-    //console.log(2);
-  }
-}
-else if(ghostRed.dir === 2){
-  if(world[Math.floor(ghostRed.y)][Math.ceil(ghostRed.x+.1)] < 4 && world[Math.ceil(ghostRed.y)][Math.ceil(ghostRed.x+.1)] < 4){
-    ghostRed.x=ghostRed.x+.1;
-    //console.log(3);
-    //xPosition = Math.ceil(this.x);
-  } else {
-    //console.log(4);
-    ghostRed.dir =3;
-    ghostRed.x=Math.ceil(ghostRed.x);
-  }
-}
-else if(ghostRed.dir === 3){
-  if(world[Math.floor(ghostRed.y-.1)][Math.floor(ghostRed.x)] < 4 && world[Math.floor(ghostRed.y-.1)][Math.ceil(ghostRed.x)] < 4){
-    ghostRed.y=ghostRed.y-.1;
-    //console.log(5);
-    //yPosition = Math.floor(this.y);
-  } else {
-    //console.log(6);
-    ghostRed.dir =4;
-    ghostRed.y=Math.floor(ghostRed.y);
-  }
-}
-else if(ghostRed.dir === 4){
-  if(world[Math.ceil(ghostRed.y+.1)][Math.floor(ghostRed.x)] < 4 && world[Math.ceil(ghostRed.y+.1)][Math.ceil(ghostRed.x)] < 4){
-    ghostRed.y=ghostRed.y+.1;
-    //console.log(7);
-    //yPosition = Math.ceil(this.y);
-  } else {
-    //console.log(8);
-    ghostRed.dir =1;
-    ghostRed.y=Math.ceil(ghostRed.y);
-  }
-}
-}
-function ghostRunGreen(){
-//console.log("runGreen");
-if(Math.ceil(Math.random()*10)<=6){
-
-} else if (Math.ceil(Math.random()*10)===7){
-  ghostGreen.dir = 1;
-}
-else if (Math.ceil(Math.random()*10)===8){
-  ghostGreen.dir = 2;
-}
-else if (Math.ceil(Math.random()*10)===9){
-  ghostGreen.dir = 3;
-}
-else if (Math.ceil(Math.random()*10)===10){
-  ghostGreen.dir = 4;
-}
-//console.log("endGreen");
-if(ghostGreen.dir === 1){
-  //checks to see if colliding with a brick
-  if(world[Math.floor(ghostGreen.y)][Math.floor(ghostGreen.x-.1)] < 4 && world[Math.ceil(ghostGreen.y)][Math.floor(ghostGreen.x-.1)] < 4){
-    //checks to see if it is touching a coin or power coin
-    ghostGreen.x=ghostGreen.x-.1;
-    //console.log(1);
-    //xPosition = Math.floor(this.x);
-  } else {
-    ghostGreen.dir =2;
-    ghostGreen.x=Math.floor(ghostGreen.x);
-    //console.log(2);
-  }
-}
-else if(ghostGreen.dir === 2){
-  if(world[Math.floor(ghostGreen.y)][Math.ceil(ghostGreen.x+.1)] < 4 && world[Math.ceil(ghostGreen.y)][Math.ceil(ghostGreen.x+.1)] < 4){
-    ghostGreen.x=ghostGreen.x+.1;
-    //console.log(3);
-    //xPosition = Math.ceil(this.x);
-  } else {
-    //console.log(4);
-    ghostGreen.dir =3;
-    ghostGreen.x=Math.ceil(ghostGreen.x);
-  }
-}
-else if(ghostGreen.dir === 3){
-  if(world[Math.floor(ghostGreen.y-.1)][Math.floor(ghostGreen.x)] < 4 && world[Math.floor(ghostGreen.y-.1)][Math.ceil(ghostGreen.x)] < 4){
-    ghostGreen.y=ghostGreen.y-.1;
-    //console.log(5);
-    //yPosition = Math.floor(this.y);
-  } else {
-    //console.log(6);
-    ghostGreen.dir =4;
-    ghostGreen.y=Math.floor(ghostGreen.y);
-  }
-}
-else if(ghostGreen.dir === 4){
-  if(world[Math.ceil(ghostGreen.y+.1)][Math.floor(ghostGreen.x)] < 4 && world[Math.ceil(ghostGreen.y+.1)][Math.ceil(ghostGreen.x)] < 4){
-    ghostGreen.y=ghostGreen.y+.1;
-    //console.log(7);
-    //yPosition = Math.ceil(this.y);
-  } else {
-    //console.log(8);
-    ghostGreen.dir =1;
-    ghostGreen.y=Math.ceil(ghostGreen.y);
-  }
-}
-}*/
 function cherryRun(){
 if(cherry.dir === 1){
   if(world[Math.floor(cherry.y)][Math.floor(cherry.x-.1)] < 4 && world[Math.ceil(cherry.y)][Math.floor(cherry.x-.1)] < 4){
@@ -594,17 +465,27 @@ else if(cherry.dir === 4){
   }
 }
 }
-function activSquare(squareObject){
-  var objectValue = world[Math.round(squareObject.y)][Math.round(squareObject.x)];
-  if(objectValue === 3){
-    world[Math.round(squareObject.y)][Math.round(squareObject.x)] = 2;
-    squareObject.charge += 5;
-  } else if(objectValue === 1){
-    world[Math.round(squareObject.y)][Math.round(squareObject.x)] = 2;
-    squareObject.charge += 1;
-  } else {
 
+//this function compares objects to map objects... it does not compare object to object
+function activSquare(squareObject){
+  var objectVOne = world[Math.floor(squareObject.y)][Math.floor(squareObject.x)];
+  var objectVTwo = world[Math.ceil(squareObject.y)][Math.ceil(squareObject.x)];
+    if(objectVOne === 3){
+      world[Math.floor(squareObject.y)][Math.floor(squareObject.x)] = 2;
+      squareObject.charge += 5;
+    } else if(objectVOne === 1){
+      world[Math.floor(squareObject.y)][Math.floor(squareObject.x)] = 2;
+      squareObject.charge += 1;
+    } else if(objectVTwo === 3){
+      world[Math.ceil(squareObject.y)][Math.ceil(squareObject.x)] = 2;
+      squareObject.charge += 5;
+    } else if(objectVTwo === 1){
+      world[Math.ceil(squareObject.y)][Math.ceil(squareObject.x)] = 2;
+      squareObject.charge += 1;
+    }
   }
+function testSquare(objectValues){
+
 }
 
 /*this function is not currently being used
