@@ -37,8 +37,8 @@ function runTime() {
     displayPacbro();
     //I know there must be a way to contain all the active objects
     //but I'm not there yet.  I'll finish later.
-    ghostRunRed();
-    ghostRunGreen();
+    ghostRunner(ghostRed);
+    ghostRunner(ghostGreen);
     displayGhost();
     updateScore();
     if(cherry.count<60){
@@ -366,6 +366,72 @@ else if(e.keyCode == 83){
 }
 }
 
+function ghostRunner(ghostColor){
+//console.log("runred");
+if(Math.ceil(Math.random()*10)<=6){
+
+} else if (Math.ceil(Math.random()*10)===7){
+  ghostColor.dir = 1;
+}
+else if (Math.ceil(Math.random()*10)===8){
+  ghostColor.dir = 2;
+}
+else if (Math.ceil(Math.random()*10)===9){
+  ghostColor.dir = 3;
+}
+else if (Math.ceil(Math.random()*10)===10){
+  ghostColor.dir = 4;
+}
+//console.log("endred");
+if(ghostColor.dir === 1){
+  //checks to see if colliding with a brick
+  if(world[Math.floor(ghostColor.y)][Math.floor(ghostColor.x-.1)] < 4 && world[Math.ceil(ghostColor.y)][Math.floor(ghostColor.x-.1)] < 4){
+    //checks to see if it is touching a coin or power coin
+    ghostColor.x=ghostColor.x-.1;
+    //console.log(1);
+    //xPosition = Math.floor(this.x);
+  } else {
+    ghostColor.dir =2;
+    ghostColor.x=Math.floor(ghostColor.x);
+    //console.log(2);
+  }
+}
+else if(ghostColor.dir === 2){
+  if(world[Math.floor(ghostColor.y)][Math.ceil(ghostColor.x+.1)] < 4 && world[Math.ceil(ghostColor.y)][Math.ceil(ghostColor.x+.1)] < 4){
+    ghostColor.x=ghostColor.x+.1;
+    //console.log(3);
+    //xPosition = Math.ceil(this.x);
+  } else {
+    //console.log(4);
+    ghostColor.dir =3;
+    ghostColor.x=Math.ceil(ghostColor.x);
+  }
+}
+else if(ghostColor.dir === 3){
+  if(world[Math.floor(ghostColor.y-.1)][Math.floor(ghostColor.x)] < 4 && world[Math.floor(ghostColor.y-.1)][Math.ceil(ghostColor.x)] < 4){
+    ghostColor.y=ghostColor.y-.1;
+    //console.log(5);
+    //yPosition = Math.floor(this.y);
+  } else {
+    //console.log(6);
+    ghostColor.dir =4;
+    ghostColor.y=Math.floor(ghostColor.y);
+  }
+}
+else if(ghostColor.dir === 4){
+  if(world[Math.ceil(ghostColor.y+.1)][Math.floor(ghostColor.x)] < 4 && world[Math.ceil(ghostColor.y+.1)][Math.ceil(ghostColor.x)] < 4){
+    ghostColor.y=ghostColor.y+.1;
+    //console.log(7);
+    //yPosition = Math.ceil(this.y);
+  } else {
+    //console.log(8);
+    ghostColor.dir =1;
+    ghostColor.y=Math.ceil(ghostColor.y);
+  }
+}
+}
+/*
+
 function ghostRunRed(){
 //console.log("runred");
 if(Math.ceil(Math.random()*10)<=6){
@@ -493,7 +559,7 @@ else if(ghostGreen.dir === 4){
     ghostGreen.y=Math.ceil(ghostGreen.y);
   }
 }
-}
+}*/
 function cherryRun(){
 if(cherry.dir === 1){
   if(world[Math.floor(cherry.y)][Math.floor(cherry.x-.1)] < 4 && world[Math.ceil(cherry.y)][Math.floor(cherry.x-.1)] < 4){
@@ -528,22 +594,6 @@ else if(cherry.dir === 4){
   }
 }
 }
-
-function checkCoin(coinObject){
-if(world[Math.floor(coinObject.y)][Math.floor(coinObject.x)] == 1){
-  world[Math.floor(coinObject.y)][Math.floor(coinObject.x)] = 2;
-  coinObject.charge += 1;
-} else if(world[Math.floor(coinObject.y)][Math.ceil(coinObject.x)] == 1){
-  world[Math.floor(coinObject.y)][Math.ceil(coinObject.x)] = 2;
-  coinObject.charge += 1;
-} else if(world[Math.ceil(coinObject.y)][Math.ceil(coinObject.x)] == 1){
-  world[Math.ceil(coinObject.y)][Math.ceil(coinObject.x)] = 2;
-  coinObject.charge += 1;
-} else if(world[Math.ceil(coinObject.y)][Math.floor(coinObject.x)] == 1){
-  world[Math.ceil(coinObject.y)][Math.floor(coinObject.x)] = 2;
-  coinObject.charge += 1;
-}
-}
 function activSquare(squareObject){
   var objectValue = world[Math.round(squareObject.y)][Math.round(squareObject.x)];
   if(objectValue === 3){
@@ -557,7 +607,7 @@ function activSquare(squareObject){
   }
 }
 
-
+/*this function is not currently being used
 function checkPowerBro(){
   if(world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] == 3){
     world[Math.floor(pacbro.y)][Math.floor(pacbro.x)] = 2;
@@ -572,7 +622,7 @@ function checkPowerBro(){
     world[Math.ceil(pacbro.y)][Math.floor(pacbro.x)] = 2;
     pacbro.charge += 5;
   }
-}
+}*/
 function ghostCrashRed(validCrash){
 if((Math.sqrt((pacman.y-ghostRed.y)*(pacman.y-ghostRed.y)))<=.7 && (Math.sqrt((pacman.x-ghostRed.x)*(pacman.x-ghostRed.x)))<=.7){
   validCrash = 1;
