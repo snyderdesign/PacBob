@@ -210,7 +210,9 @@
 			//setTimeout I found when looking for a time display.
 			//It does a function after waiting a specified amount of time.
 			setTimeout(runTime, 100);
-	} //end of runtime function
+	}
+//end of runtime function
+
 
 	var score = 0;
 	var yPosition = 1;
@@ -447,19 +449,8 @@
 		// console.log(output);
 		document.getElementById('worlds').innerHTML = output;
 	}
-/*
-function funStanding(){
-	pacmans.style.background = "http://bobsnyderdesign.com/standing_head_2.gif");
-}
-function funWalking(){
-	pacmans.style.background = "http://bobsnyderdesign.com/walking_head_2.gif";
-}
-document.getElementById('pacmans').addEventListener("keydown", funWalking);
-document.getElementById('pacmans').addEventListener("keyup", funStanding);
-*/
-document.onkeydown = function(e){
-	//console.log(e.keyCode);
-	//document.getElementById('pacmans').style.background = "http://bobsnyderdesign.com/walking_head_2.gif";
+//want to change the incements to a variable stored in the pac objects and the checks a standard function.
+document.onkeydown = function(e){ //my way of checking for key inputs
 	if(e.keyCode == 37){
 		//checks to see if colliding with a brick
 		if(world[Math.floor(pacman.y)][Math.floor(pacman.x-.5)] < 4 && world[Math.ceil(pacman.y)][Math.floor(pacman.x-.5)] < 4){
@@ -545,7 +536,6 @@ document.onkeydown = function(e){
 	  }
 	}
 }
-
 
 function ghostRunRed(){
 	//console.log("runred");
