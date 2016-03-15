@@ -1,21 +1,3 @@
-//I had the idea of using a temp array to track if a block was acessible
-//It's still a good idea, but I wasn't able to complete it in time.
-//I'll finish it later, but I might ditch the temp array... not sure yet.
-/*var tempWorld =[
-   [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
-   [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
- ];
- randomWorld();
- */
  var world = randomWorld([
      [4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,4],
      [13,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,12],
@@ -382,51 +364,30 @@ else if (Math.ceil(Math.random()*10)===9){
 else if (Math.ceil(Math.random()*10)===10){
   ghostColor.dir = 4;
 }
-//console.log("endred");
+var ghostTempX = ghostColor.x;
+var ghostTempY = ghostColor.y;
 if(ghostColor.dir === 1){
-  //checks to see if colliding with a brick
-  if(world[Math.floor(ghostColor.y)][Math.floor(ghostColor.x-.1)] < 4 && world[Math.ceil(ghostColor.y)][Math.floor(ghostColor.x-.1)] < 4){
-    //checks to see if it is touching a coin or power coin
-    ghostColor.x=ghostColor.x-.1;
-    //console.log(1);
-    //xPosition = Math.floor(this.x);
-  } else {
-    ghostColor.dir =2;
-    ghostColor.x=Math.floor(ghostColor.x);
-    //console.log(2);
+  moveObject(ghostColor, 0, -0.1);
+  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
+    ghostColor.dir = 2;
   }
 }
 else if(ghostColor.dir === 2){
-  if(world[Math.floor(ghostColor.y)][Math.ceil(ghostColor.x+.1)] < 4 && world[Math.ceil(ghostColor.y)][Math.ceil(ghostColor.x+.1)] < 4){
-    ghostColor.x=ghostColor.x+.1;
-    //console.log(3);
-    //xPosition = Math.ceil(this.x);
-  } else {
-    //console.log(4);
-    ghostColor.dir =3;
-    ghostColor.x=Math.ceil(ghostColor.x);
+  moveObject(ghostColor, 0, 0.1);
+  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
+    ghostColor.dir = 3;
   }
 }
 else if(ghostColor.dir === 3){
-  if(world[Math.floor(ghostColor.y-.1)][Math.floor(ghostColor.x)] < 4 && world[Math.floor(ghostColor.y-.1)][Math.ceil(ghostColor.x)] < 4){
-    ghostColor.y=ghostColor.y-.1;
-    //console.log(5);
-    //yPosition = Math.floor(this.y);
-  } else {
-    //console.log(6);
-    ghostColor.dir =4;
-    ghostColor.y=Math.floor(ghostColor.y);
+  moveObject(ghostColor, -0.1, 0);
+  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
+    ghostColor.dir = 4;
   }
 }
 else if(ghostColor.dir === 4){
-  if(world[Math.ceil(ghostColor.y+.1)][Math.floor(ghostColor.x)] < 4 && world[Math.ceil(ghostColor.y+.1)][Math.ceil(ghostColor.x)] < 4){
-    ghostColor.y=ghostColor.y+.1;
-    //console.log(7);
-    //yPosition = Math.ceil(this.y);
-  } else {
-    //console.log(8);
-    ghostColor.dir =1;
-    ghostColor.y=Math.ceil(ghostColor.y);
+  moveObject(ghostColor, 0.1, 0);
+  if(ghostTempX === ghostColor.x && ghostTempY === ghostColor.y){
+    ghostColor.dir = 1;
   }
 }
 }
@@ -484,9 +445,6 @@ function activSquare(squareObject){
       squareObject.charge += 1;
     }
   }
-function testSquare(objectValues){
-
-}
 
 /*this function is not currently being used
 function checkPowerBro(){
